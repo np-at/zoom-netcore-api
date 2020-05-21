@@ -24,6 +24,8 @@ namespace AndcultureCode.ZoomClient
         public IZoomReportsClient  Reports  { get; }
         public IZoomUsersClient    Users    { get; }
         public IZoomWebhookClient  Webhooks { get; }
+        
+        public IZoomRecordingsClient Recordings { get; }
 
         #endregion
 
@@ -66,6 +68,7 @@ namespace AndcultureCode.ZoomClient
             Reports  = new ZoomReportsClient(Options, WebClient);
             Users    = new ZoomUsersClient(Options, WebClient);
             Webhooks = new ZoomWebhookClient(Options, WebClient);
+            Recordings = new ZoomRecordingsClient(Options, WebClient);
         }
 
         #endregion

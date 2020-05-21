@@ -26,5 +26,10 @@
         /// Webhooks Client
         /// </summary>
         IZoomWebhookClient Webhooks { get; }
+        
+        /// <summary>
+        /// Recordings Client
+        /// </summary>
+        IZoomRecordingsClient Recordings { get; }
     }
 }
