@@ -15,10 +15,14 @@ namespace AndcultureCode.ZoomClient
         #region Constants
 
         private const string GET_LIST_USER_RECORDINGS = "users/{userId}/recordings";
-        
+        private const string GET_LIST_ACCOUNT_RECORDINGS = "accounts/{accountId}/recordings";
+        private const string GET_MEETING_RECORDINGS = "meetings/{meetingId}/recordings";
+
+
+
         #endregion
-        
-        
+
+
         #region Properties
 
         private ZoomClientOptions Options { get; set; }
@@ -85,12 +89,38 @@ namespace AndcultureCode.ZoomClient
 
         public ListRecordings GetAccountRecordings(string accountId, int pageSize = 30, int pageNumber = 1)
         {
-            throw new NotImplementedException();
+            var request = BuildRequestAuthorization(GET_LIST_ACCOUNT_RECORDINGS, Method.GET);
+            request.AddParameter("accountId", accountId, ParameterType.UrlSegment);
+            request.AddParameter("page_size", pageSize, ParameterType.QueryString);
+
+            var response = WebClient.Execute<ListRecordings>(request);
+
+            if (response.ResponseStatus == ResponseStatus.Completed && response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return response.Data;
+            }
+
+            if (!string.IsNullOrWhiteSpace(response.ErrorMessage))
+            {
+                throw new Exception(response.ErrorMessage);
+            }
+
+            if (!string.IsNullOrWhiteSpace(response.StatusDescription) && !string.IsNullOrWhiteSpace(response.Content))
+            {
+                throw new Exception($"{response.StatusDescription} || {response.Content}");
+            }
+
+            if (!string.IsNullOrWhiteSpace(response.Content))
+            {
+                throw new Exception($"{response.StatusCode} || {response.Content}");
+            }
+
+            return null;
         }
 
-        public RecordingFileList GetRecording(string meetingId)
+        public RecordingFileList GetMeetingRecordings(string meetingId)
         {
-            throw new NotImplementedException();
+            var request = BuildRequestAuthorization(GET_MEETING_RECORDINGS, Method.GET)
         }
         
         #endregion

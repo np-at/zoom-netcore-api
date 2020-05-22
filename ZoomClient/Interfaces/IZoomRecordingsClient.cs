@@ -38,8 +38,7 @@ namespace AndcultureCode.ZoomClient.Interfaces
         /// </summary>
         /// <param name="meetingId"></param>
         /// <returns></returns>
-        RecordingFileList GetRecording(string meetingId);
-        
+        RecordingFileList GetMeetingRecordings(string meetingId);
         
     }
 }
